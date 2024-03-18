@@ -1,0 +1,11 @@
+
+<!-- item_recetas.xml -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Aquí va el contenido de tu diseño -->
+
+    </LinearLayout>
+</layout>
