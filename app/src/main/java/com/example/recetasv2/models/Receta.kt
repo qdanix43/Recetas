@@ -1,13 +1,33 @@
 package com.example.recetasv2.models
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 
-
-@Entity(tableName = "recetas")
 data class Receta(
-    @PrimaryKey val id: Int,
+    val id: Long = -1, // El ID se inicializa como -1 para indicar que es una receta nueva
     val nombre: String,
     val descripcion: String,
-    val imagenUrl: String
-)
+    val ingredientes: List<String>,
+    val pasos: List<String>
+) {
+    companion object {
+        val COLUMN_PASOS: String
+            get() {
+                TODO()
+            }
+        val COLUMN_INGREDIENTES: String
+            get() {
+                TODO()
+            }
+        val COLUMN_DESCRIPCION: String
+            get() {
+                TODO()
+            }
+        val COLUMN_NOMBRE: String
+            get() {
+                TODO()
+            }
+        val TABLE_NAME: String
+            get() {
+                TODO()
+            }
+    }
+}
