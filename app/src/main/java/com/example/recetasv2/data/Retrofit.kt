@@ -1,4 +1,4 @@
-package com.example.recetasv2.utils
+package com.example.recetasv2.data
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

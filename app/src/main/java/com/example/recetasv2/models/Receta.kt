@@ -7,27 +7,4 @@ data class Receta(
     val descripcion: String,
     val ingredientes: List<String>,
     val pasos: List<String>
-) {
-    companion object {
-        val COLUMN_PASOS: String
-            get() {
-                TODO()
-            }
-        val COLUMN_INGREDIENTES: String
-            get() {
-                TODO()
-            }
-        val COLUMN_DESCRIPCION: String
-            get() {
-                TODO()
-            }
-        val COLUMN_NOMBRE: String
-            get() {
-                TODO()
-            }
-        val TABLE_NAME: String
-            get() {
-                TODO()
-            }
-    }
-}
+)

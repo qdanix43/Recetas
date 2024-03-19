@@ -4,33 +4,25 @@ plugins {
 }
 
 android {
-    namespace = "com.example.recetasv2"
+    namespace = "com.example.recetav2"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.recetasv2"
-        minSdk = 26
+        applicationId = "com.example.recetav2"
+        minSdk = 24
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-    buildFeatures {
-            dataBinding = true
-            viewBinding = true
 
-
-
-
-    }
     buildTypes {
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
-
             )
         }
     }
@@ -40,6 +32,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+
+    buildFeatures {
+        viewBinding = true
     }
 }
 
@@ -59,6 +55,7 @@ dependencies {
     implementation ("androidx.room:room-common:2.6.1")
     implementation ("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
+    implementation("com.google.ai.client.generativeai:generativeai:0.2.2")
     testImplementation ("junit:junit:4.13.2")
     androidTestImplementation ("androidx.test.ext:junit:1.1.5")
     androidTestImplementation ("androidx.test.espresso:espresso-core:3.5.1")
