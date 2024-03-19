@@ -1,7 +1,6 @@
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.example.recetasv2.models.Receta
 
 class DatabaseManager(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
@@ -19,7 +18,7 @@ class DatabaseManager(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
 
         // Sentencia SQL para crear la tabla de recetas
         val SQL_CREATE_TABLE =
-            "CREATE TABLE ${Receta.TABLE_NAME} (" +
+            "CREATE TABLE Receta (" +
                     "$COLUMN_NAME_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "$COLUMN_NOMBRE TEXT," +
                     "$COLUMN_DESCRIPCION TEXT," +
@@ -27,7 +26,7 @@ class DatabaseManager(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
                     "$COLUMN_PASOS TEXT)"
 
         // Sentencia SQL para eliminar la tabla de recetas
-        val SQL_DELETE_TABLE = "DROP TABLE IF EXISTS ${Receta.TABLE_NAME}"
+        val SQL_DELETE_TABLE = "DROP TABLE IF EXISTS Recipe"
     }
 
     // Método llamado al crear la base de datos por primera vez

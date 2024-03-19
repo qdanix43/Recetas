@@ -1,3 +1,5 @@
+@file:Suppress("AndroidUnresolvedRoomSqlReference")
+
 package com.example.recetasv2.models
 
 import androidx.room.Dao
