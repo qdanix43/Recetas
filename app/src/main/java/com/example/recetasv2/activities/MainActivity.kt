@@ -4,11 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.recetasv2.data.RecetasServiceApi
 import com.example.recetasv2.databinding.ActivityMainBinding
 import com.example.recetasv2.models.Receta
-import com.example.recetasv2.utils.Retrofit.Call
-import Retrofit.Callback
-import Retrofit.Response
-import Retrofit.Retrofit
-import Retrofit.converter.gson.GsonConverterFactory
+import com.example.recetasv2.utils.Retrofit1.Call
+import com.example.recetasv2.utils.Retrofit.converter.gson.GsonConverterFactory
+import com.example.recetasv2.utils.Retrofit
 
 class MainActivity : AppCompatActivity() {
 
