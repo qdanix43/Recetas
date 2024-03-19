@@ -18,7 +18,7 @@ class DatabaseManager(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
 
         // Sentencia SQL para crear la tabla de recetas
         val SQL_CREATE_TABLE =
-            "CREATE TABLE Receta (" +
+            "CREATE TABLE Recipe (" +
                     "$COLUMN_NAME_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "$COLUMN_NOMBRE TEXT," +
                     "$COLUMN_DESCRIPCION TEXT," +

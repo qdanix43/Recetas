@@ -1,11 +1,18 @@
 package com.example.recetasv2.data
 
-import android.telecom.Call
-import com.example.recetasv2.models.Receta as Receta1
+import com.example.recetasv2.models.Receta
+import retrofit2.Response
+import retrofit2.http.GET
+import retrofit2.http.Path
 
 interface RecetasServiceApi {
     @GET("endpoint/recetas") // Reemplaza "endpoint/recetas" con la URL real de la API
-    fun getRecetas(): Call<List<Receta1>>
-}
+    fun getRecetas(): List<Receta>
 
-annotation class GET(val value: String)
+
+    @GET("search/{name}")
+    suspend fun searchByName(@Path("name") query:String) : Response<RecetaResponse>
+
+    @GET("{id}")
+    suspend fun findById(@Path("id") identifier:String) : Response<Receta>
+}

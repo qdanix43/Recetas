@@ -1,49 +1,65 @@
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.room.util.query
 import com.example.recetasv2.data.RecetasServiceApi
 import com.example.recetasv2.databinding.ActivityMainBinding
-import com.example.recetasv2.models.Receta
-import com.example.recetasv2.utils.Retrofit1.Call
-import com.example.recetasv2.utils.Retrofit.converter.gson.GsonConverterFactory
-import com.example.recetasv2.utils.Retrofit
+import com.example.recetasv2.utils.RetrofitClient
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlin.collections.List
+
+private val Any.isSuccessful: Boolean
+    get() {
+        TODO("Not yet implemented")
+    }
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var recetasService: RecetasServiceApi
-
+    private var RecetaList:List<RecetaList> = listOf()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Configurar Retrofit
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://dummyjson.com/recipes/search?q=Margherita")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        // Configurar Retrofit y obtener una instancia de la interfaz de servicio
+        recetasService = RetrofitClient.getClient().create(RecetasServiceApi::class.java)
 
-        // Crear una instancia de la interfaz de servicio de recetas
-        recetasService = retrofit.create(RecetasServiceApi::class.java)
+        CoroutineScope(Dispatchers.IO).launch {
+            // Llamada en segundo plano
 
-        // Realizar la solicitud de red para obtener las recetas
-        recetasService.getRecetas().enqueue(object : Callback<List<Receta>> {
-            override fun onResponse(call: Call<List<Receta>>, response: Response<List<Receta>>) {
-                if (response.isSuccessful) {
-                    val recetas = response.body()
-                    // Aquí puedes procesar las recetas obtenidas de la API
-                    recetas?.forEach { receta ->
-                        Log.d("Receta", "Nombre: ${receta.nombre}, Ingredientes: ${receta.ingredientes}")
+            val response = service.searchByName(query)
+
+            runOnUiThread {
+                // Modificar UI
+                binding.progress.visibility = View.GONE
+
+                if (response.body() != null) {
+                    Log.i("HTTP", "respuesta correcta :)")
+                    RecetaList = response.body()?.results.orEmpty()
+                    adapter.updateItems(RecetaList)
+
+                    if (RecetaList.isNotEmpty()) {
+                        binding.recyclerView.visibility = View.VISIBLE
+                        binding.emptyPlaceholder.visibility = View.GONE
+                    } else {
+                        binding.recyclerView.visibility = View.GONE
+                        binding.emptyPlaceholder.visibility = View.VISIBLE
                     }
                 } else {
-                    Log.e("API Error", "Error al obtener las recetas: ${response.message()}")
+                    Log.i("HTTP", "respuesta erronea :(")
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Hubo un error inesperado, vuelva a intentarlo más tarde",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
-
-            override fun onFailure(call: Call<List<Receta>>, t: Throwable) {
-                Log.e("Network Error", "Error de red al obtener las recetas", t)
-            }
-        })
+        }
     }
 }
